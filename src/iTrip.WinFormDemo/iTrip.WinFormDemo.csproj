@@ -32,13 +32,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="iTrip.Core.CommonResult">
+      <HintPath>..\..\libs\itrip\iTrip.Core.CommonResult.dll</HintPath>
+    </Reference>
+    <Reference Include="iTrip.Core.Setting">
+      <HintPath>..\..\libs\itrip\iTrip.Core.Setting.dll</HintPath>
+    </Reference>
     <Reference Include="iTrip.iPP.IProxy">
       <HintPath>..\..\libs\iTrip.iPP.IProxy.dll</HintPath>
     </Reference>
     <Reference Include="iTrip.iPP.Proxy">
       <HintPath>..\..\libs\iTrip.iPP.Proxy.dll</HintPath>
     </Reference>
+    <Reference Include="iTrip.Service.Wcf.Message.IPublisherIM">
+      <HintPath>..\..\libs\wcf\iTrip.Service.Wcf.Message.IPublisherIM.dll</HintPath>
+    </Reference>
+    <Reference Include="iTrip.Service.Wcf.Passport.IAuthentication">
+      <HintPath>..\..\libs\wcf\iTrip.Service.Wcf.Passport.IAuthentication.dll</HintPath>
+    </Reference>
+    <Reference Include="iTrip.Service.Wcf.Relation.ITripperRelationShipResolver">
+      <HintPath>..\..\libs\wcf\iTrip.Service.Wcf.Relation.ITripperRelationShipResolver.dll</HintPath>
+    </Reference>
+    <Reference Include="iTrip.Service.Wcf.Status.ITripperStatusResolver">
+      <HintPath>..\..\libs\wcf\iTrip.Service.Wcf.Status.ITripperStatusResolver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -63,6 +82,9 @@
     <Reference Include="WinStudio.StringExtensions">
       <HintPath>..\..\libs\WinStudio.StringExtensions.dll</HintPath>
     </Reference>
+    <Reference Include="WinStudio.WcfManager">
+      <HintPath>..\..\libs\WinStudio.WcfManager.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
@@ -71,6 +93,7 @@
     <Compile Include="Business\BusiContainer.cs" />
     <Compile Include="Business\BusiLogin.cs" />
     <Compile Include="Business\BusiMainFrom.cs" />
+    <Compile Include="Core\ReqWcfService.cs" />
     <Compile Include="Dao\ClientPackage.cs" />
     <Compile Include="MainManager.cs" />
     <Compile Include="Common\JsonExtensions.cs" />

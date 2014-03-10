@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using iTrip.Service.Wcf.Passport.IAuthentication;
 
 namespace iTrip.WinFormDemo.Core
 {
@@ -25,32 +26,41 @@ namespace iTrip.WinFormDemo.Core
             if (string.IsNullOrEmpty(AppSettings.Instance.Account) || string.IsNullOrEmpty(AppSettings.Instance.Ticket))
                 return false;
 
-            return CheckTicket().ret;
+            return CheckTicket().Ret;
         }
 
-        public iTripResult Login(string account, string pwd)
+        public StandardResult Login(string account, string pwd)
         {
-            string data = string.Format("account={0}&password={1}&clientype={2}&clientsn={3}", account, pwd.ToMD5(), 1, "winform");
-            string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlLogin, data, new HttpCookieCollection());
-            return ret.ToiTripJsonRet();
+            IServiceAuthenticationReception servAuth = ReqWcfService.Instance.GetService<IServiceAuthenticationReception>();
+            var ret = servAuth.Login(account, pwd.ToMD5(), DeviceType.WinPhone, "wp123456abc");
+            return ret;
+            //string data = string.Format("account={0}&password={1}&clientype={2}&clientsn={3}", account, pwd.ToMD5(), 1, "winform");
+            //string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlLogin, data, new HttpCookieCollection());
+            //return ret.ToiTripJsonRet();
         }
-        public iTripResult Logout(string ticket)
+        public StandardResult Logout(string ticket)
         {
-            string data = string.Format("ticket={0}", ticket);
-            string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlLogout, data, new HttpCookieCollection());
-            return ret.ToiTripJsonRet();
+            IServiceAuthenticationReception servAuth = ReqWcfService.Instance.GetService<IServiceAuthenticationReception>();
+            return servAuth.Logout(ticket);
+            //string data = string.Format("ticket={0}", ticket);
+            //string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlLogout, data, new HttpCookieCollection());
+            //return ret.ToiTripJsonRet();
         }
-        public iTripResult Register(string account, string pwd)
+        public StandardResult Register(string account, string pwd)
         {
-            string data = string.Format("account={0}&password={1}", account, pwd.ToMD5());
-            string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlRegister, data, new HttpCookieCollection());
-            return ret.ToiTripJsonRet();
+            IServiceAuthenticationReception servAuth = ReqWcfService.Instance.GetService<IServiceAuthenticationReception>();
+            return servAuth.Register(account, pwd.ToMD5());
+            //string data = string.Format("account={0}&password={1}", account, pwd.ToMD5());
+            //string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlRegister, data, new HttpCookieCollection());
+            //return ret.ToiTripJsonRet();
         }
-        public iTripResult CheckTicket()
+        public StandardResult CheckTicket()
         {
-            string data = string.Format("ticket={0}", AppSettings.Instance.Ticket);
-            string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlCheckTicket, data, new HttpCookieCollection());
-            return ret.ToiTripJsonRet();
+            IServiceAuthenticationReception servAuth = ReqWcfService.Instance.GetService<IServiceAuthenticationReception>();
+            return servAuth.CheckTicket(AppSettings.Instance.Ticket);
+            //string data = string.Format("ticket={0}", AppSettings.Instance.Ticket);
+            //string ret = HttpHelper.SendRequest(AppSettings.Instance.UrlCheckTicket, data, new HttpCookieCollection());
+            //return ret.ToiTripJsonRet();
         }
     }
 }

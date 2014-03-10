@@ -36,13 +36,13 @@ namespace iTrip.WinFormDemo.UC
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var json = ReqAccount.Instance.Login(this.tbAccount.Text, this.tbPassword.Text);
+            var ret = ReqAccount.Instance.Login(this.tbAccount.Text, this.tbPassword.Text);
 
-            if (!json.ret) { this.lbMsg.Text = json.msg; }
+            if (!ret.Ret) { this.lbMsg.Text = ret.Msg; }
             else
             {
                 AppSettings.Instance.Account = tbAccount.Text.Trim();
-                AppSettings.Instance.Ticket = json.msg;
+                AppSettings.Instance.Ticket = ret.Msg;
 
                 MainManager.Instance.Show(UCFregments.MainFrom, null);
             }
@@ -50,9 +50,9 @@ namespace iTrip.WinFormDemo.UC
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            var json = ReqAccount.Instance.Register(this.tbAccount.Text, this.tbPassword.Text);
+            var ret = ReqAccount.Instance.Register(this.tbAccount.Text, this.tbPassword.Text);
 
-            if (!json.ret) { this.lbMsg.Text = json.msg; }
+            if (!ret.Ret) { this.lbMsg.Text = ret.Msg; }
             else
             {
                 AppSettings.Instance.Account = tbAccount.Text.Trim();
